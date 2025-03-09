@@ -34,28 +34,42 @@ export default function Signup() {
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
+        options: {
+          data: {
+            username: formData.username,
+          },
+        },
       });
 
-      if (authError) throw authError;
+      if (authError) {
+        console.error('Auth Error:', authError);
+        throw authError;
+      }
 
       if (authData.user) {
+        console.log('User created:', authData.user);
+        
         // Create profile after successful signup
         const { error: profileError } = await supabase
           .from('profiles')
           .insert([
             {
-              user_id: authData.user.id,
+              id: authData.user.id,
               username: formData.username,
-              email: formData.email,
+              email: formData.email
             }
           ]);
 
-        if (profileError) throw profileError;
+        if (profileError) {
+          console.error('Profile Error:', profileError);
+          throw profileError;
+        }
 
         // Redirect to login page after successful signup
         router.push('/login?message=Please check your email to verify your account');
       }
     } catch (err: any) {
+      console.error('Signup Error:', err);
       setError(err.message || 'An error occurred during signup');
     } finally {
       setLoading(false);
