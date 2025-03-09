@@ -11,11 +11,13 @@ import VoiceWave from './components/VoiceWave'
 import TypeWriter from './components/TypeWriter'
 import TeamMember from './components/TeamMember'
 import HeartTrail from './components/HeartTrail'
+import FloatingAnimals from './components/FloatingAnimals'
 
 export default function Home() {
   return (
     <div className="min-h-screen">
       <HeartTrail />
+      <FloatingAnimals />
       <ScrollDimmer />
       <header className="fixed w-full top-0 z-50 glass-effect border-b border-gray-200/50">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -199,7 +201,7 @@ export default function Home() {
                       type="text"
                       id="name"
                       name="name"
-                      className="mt-1 block w-full kawaii-input"
+                      className="mt-1 block w-full px-6 py-4 bg-blue-50/50 border border-gray-200 focus:outline-none rounded-md"
                     />
                   </div>
                   <div>
@@ -210,7 +212,7 @@ export default function Home() {
                       type="email"
                       id="email"
                       name="email"
-                      className="mt-1 block w-full kawaii-input"
+                      className="mt-1 block w-full px-6 py-4 bg-blue-50/50 border border-gray-200 focus:outline-none rounded-md"
                     />
                   </div>
                   <div>
@@ -221,7 +223,7 @@ export default function Home() {
                       id="message"
                       name="message"
                       rows={4}
-                      className="mt-1 block w-full kawaii-input"
+                      className="mt-1 block w-full px-6 py-4 bg-blue-50/50 border border-gray-200 focus:outline-none resize-none rounded-md"
                     />
                   </div>
                   <button type="submit" className="kawaii-button w-full">

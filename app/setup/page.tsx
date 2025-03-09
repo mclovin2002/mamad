@@ -5,6 +5,12 @@ import { useRouter } from 'next/navigation';
 import { Mic, Volume2, Mail, ChevronDown, Check } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
+interface MessageForm {
+  name: string;
+  email: string;
+  message: string;
+}
+
 export default function Setup() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -24,6 +30,12 @@ export default function Setup() {
     'English', 'Spanish', 'French', 'German', 'Italian', 
     'Chinese', 'Japanese', 'Korean', 'Arabic', 'Russian'
   ];
+
+  const [messageForm, setMessageForm] = useState<MessageForm>({
+    name: '',
+    email: '',
+    message: ''
+  });
 
   const requestMicrophonePermission = async () => {
     try {
@@ -85,6 +97,34 @@ export default function Setup() {
       }
     } catch (err) {
       setError('Failed to save preferences. Please try again.');
+    }
+  };
+
+  const handleMessageSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccess('');
+
+    try {
+      const response = await fetch('/api/send-message', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(messageForm),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
+      setSuccess('Message sent successfully!');
+      setMessageForm({ name: '', email: '', message: '' }); // Reset form
+    } catch (err) {
+      setError('Failed to send message. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -197,6 +237,65 @@ export default function Setup() {
                 <span>Send Invite</span>
               </button>
             </div>
+          </form>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-soft p-8 mb-8">
+          <h2 className="text-2xl font-semibold mb-6">Send Message</h2>
+          <form onSubmit={handleMessageSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                Name
+              </label>
+              <input
+                id="name"
+                type="text"
+                value={messageForm.name}
+                onChange={(e) => setMessageForm(prev => ({ ...prev, name: e.target.value }))}
+                className="w-full px-6 py-4 bg-blue-50/50 border border-gray-200 focus:outline-none rounded-md"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                value={messageForm.email}
+                onChange={(e) => setMessageForm(prev => ({ ...prev, email: e.target.value }))}
+                className="w-full px-6 py-4 bg-blue-50/50 border border-gray-200 focus:outline-none rounded-md"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                Message
+              </label>
+              <textarea
+                id="message"
+                value={messageForm.message}
+                onChange={(e) => setMessageForm(prev => ({ ...prev, message: e.target.value }))}
+                rows={6}
+                className="w-full px-6 py-4 bg-blue-50/50 border border-gray-200 focus:outline-none resize-none rounded-md"
+                placeholder="Type your message here..."
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white py-4 px-6 flex items-center justify-center space-x-2"
+            >
+              <span>{loading ? 'Sending...' : 'Send Message'}</span>
+              <span>✨</span>
+            </button>
           </form>
         </div>
 
