@@ -10,10 +10,12 @@ import ScrollDimmer from './components/ScrollDimmer'
 import VoiceWave from './components/VoiceWave'
 import TypeWriter from './components/TypeWriter'
 import TeamMember from './components/TeamMember'
+import HeartTrail from './components/HeartTrail'
 
 export default function Home() {
   return (
     <div className="min-h-screen">
+      <HeartTrail />
       <ScrollDimmer />
       <header className="fixed w-full top-0 z-50 glass-effect border-b border-gray-200/50">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -32,8 +34,8 @@ export default function Home() {
               <Link href="/login" className="nav-link">
                 Log in
               </Link>
-              <Link href="/signup" className="btn-primary hover-lift">
-                Sign up
+              <Link href="/signup" className="kawaii-button">
+                Sign up ✨
               </Link>
             </div>
           </div>
@@ -41,7 +43,7 @@ export default function Home() {
       </header>
 
       <main className="pt-20">
-        <section className="w-full min-h-[70vh] flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12 bg-gradient-to-b from-white to-primary-50">
+        <section className="w-full min-h-[70vh] flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12 bg-gradient-to-b from-white to-primary-50 kawaii-section">
           <div className="w-full max-w-7xl mx-auto">
             <div className="text-center space-y-6">
               <div className="flex items-center justify-center gap-4">
@@ -57,7 +59,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-24 bg-gray-50" id="features">
+        <section className="py-24 bg-gray-50 kawaii-section" id="features">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <AnimatedSection className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4 gradient-text">
@@ -69,32 +71,32 @@ export default function Home() {
             </AnimatedSection>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <AnimatedSection className="card p-6 hover-lift" delay={0.1}>
+              <AnimatedSection className="card kawaii-card" delay={0.1}>
                 <div className="flex items-center mb-4">
                   <Image src="/teams-icon.svg" alt="Microsoft Teams" width={32} height={32} className="mr-3" />
-                  <h3 className="text-xl font-semibold">Microsoft Teams</h3>
+                  <h3 className="text-xl font-semibold gradient-text">Microsoft Teams</h3>
                 </div>
-                <p className="text-gray-600">
+                <p className="text-pink-600">
                   Full integration with Microsoft Teams for enterprise-grade communication
                 </p>
               </AnimatedSection>
 
-              <AnimatedSection className="card p-6 hover-lift" delay={0.2}>
+              <AnimatedSection className="card kawaii-card" delay={0.2}>
                 <div className="flex items-center mb-4">
                   <Image src="/meet-icon.svg" alt="Google Meet" width={32} height={32} className="mr-3" />
-                  <h3 className="text-xl font-semibold">Google Meet</h3>
+                  <h3 className="text-xl font-semibold gradient-text">Google Meet</h3>
                 </div>
-                <p className="text-gray-600">
+                <p className="text-pink-600">
                   Seamless integration with Google Meet for smooth collaboration
                 </p>
               </AnimatedSection>
 
-              <AnimatedSection className="card p-6 hover-lift" delay={0.3}>
+              <AnimatedSection className="card kawaii-card" delay={0.3}>
                 <div className="flex items-center mb-4">
                   <Image src="/zoom-icon.svg" alt="Zoom" width={32} height={32} className="mr-3" />
-                  <h3 className="text-xl font-semibold">Zoom</h3>
+                  <h3 className="text-xl font-semibold gradient-text">Zoom</h3>
                 </div>
-                <p className="text-gray-600">
+                <p className="text-pink-600">
                   Complete Zoom integration for enhanced virtual meetings
                 </p>
               </AnimatedSection>
@@ -102,7 +104,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-24" id="demo">
+        <section className="py-24 kawaii-section" id="demo">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <AnimatedSection className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4 gradient-text">
@@ -126,8 +128,8 @@ export default function Home() {
                   <source src="/20250308_2037_Real-Time Translation Demo_simple_compose_01jnwk2rw8fbkattqbwp5j7e0j.mp4" type="video/mp4" />
                 </video>
                 <div className="absolute inset-0 flex items-end justify-center p-8 z-20">
-                  <Link href="/signup" className="btn-primary text-lg px-8 py-3 hover-lift">
-                    Try Demo
+                  <Link href="/signup" className="kawaii-button">
+                    Try Demo ✨
                   </Link>
                 </div>
               </div>
@@ -135,7 +137,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-24 bg-gray-50" id="about">
+        <section className="py-24 bg-gray-50 kawaii-section" id="about">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <AnimatedSection className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4 gradient-text">
@@ -148,30 +150,34 @@ export default function Home() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <TeamMember
-                name="Alex Chen"
-                role="Backend Developer"
+                name="Arash Naghavi"
+                role="Frontend Developer"
+                avatarUrl="/team/arash.heic"
                 delay={0.1}
               />
               <TeamMember
-                name="Sarah Kim"
-                role="Frontend Developer"
+                name="Nikoo Vali"
+                role="Backend Developer"
+                avatarUrl="/team/nikoo.heic"
                 delay={0.2}
               />
               <TeamMember
-                name="Michael Patel"
-                role="Backend Developer"
+                name="Mary Hosseini"
+                role="Frontend Developer"
+                avatarUrl="/team/mary.heic"
                 delay={0.3}
               />
               <TeamMember
-                name="Emma Wilson"
-                role="Frontend Developer"
+                name="Mona Abusharkh"
+                role="Backend Developer"
+                avatarUrl="/team/mona.png"
                 delay={0.4}
               />
             </div>
           </div>
         </section>
 
-        <section className="py-24" id="contact">
+        <section className="py-24 kawaii-section" id="contact">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <AnimatedSection className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4 gradient-text">
@@ -193,7 +199,7 @@ export default function Home() {
                       type="text"
                       id="name"
                       name="name"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+                      className="mt-1 block w-full kawaii-input"
                     />
                   </div>
                   <div>
@@ -204,7 +210,7 @@ export default function Home() {
                       type="email"
                       id="email"
                       name="email"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+                      className="mt-1 block w-full kawaii-input"
                     />
                   </div>
                   <div>
@@ -215,11 +221,11 @@ export default function Home() {
                       id="message"
                       name="message"
                       rows={4}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+                      className="mt-1 block w-full kawaii-input"
                     />
                   </div>
-                  <button type="submit" className="btn-primary w-full">
-                    Send Message
+                  <button type="submit" className="kawaii-button w-full">
+                    Send Message ✨
                   </button>
                 </form>
               </AnimatedSection>
@@ -233,10 +239,10 @@ export default function Home() {
                   <input
                     type="email"
                     placeholder="Enter your email"
-                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+                    className="block w-full kawaii-input"
                   />
-                  <button type="submit" className="btn-primary w-full">
-                    Subscribe
+                  <button type="submit" className="kawaii-button w-full">
+                    Subscribe ✨
                   </button>
                 </form>
               </AnimatedSection>

@@ -1,40 +1,99 @@
 'use client';
 
-import Link from 'next/link'
-import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
+import { Loader2 } from 'lucide-react';
 
 export default function Login() {
-  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    rememberMe: false
+  });
+
+  useEffect(() => {
+    // Check for message in URL (e.g., after signup)
+    const message = searchParams.get('message');
+    if (message) {
+      setMessage(message);
+    }
+  }, [searchParams]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setFormData({
+      ...formData,
+      [e.target.name]: value
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    // Add your login logic here
-    setTimeout(() => setIsLoading(false), 1000);
+    setLoading(true);
+    setError('');
+
+    try {
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (signInError) throw signInError;
+
+      if (data.user) {
+        // Fetch user profile
+        const { data: profileData, error: profileError } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('user_id', data.user.id)
+          .single();
+
+        if (profileError) throw profileError;
+
+        // Store user session if remember me is checked
+        if (formData.rememberMe) {
+          // The session is automatically handled by Supabase
+          console.log('Session will be remembered');
+        }
+
+        // Redirect to dashboard or home page
+        router.push('/');
+      }
+    } catch (err: any) {
+      setError(err.message || 'An error occurred during login');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen flex">
-      {/* Left side - Form */}
-      <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-20 xl:px-24">
-        <div className="mx-auto w-full max-w-sm lg:w-96">
-          <div className="text-center mb-8">
-            <Link href="/" className="inline-flex items-center justify-center mb-6">
-              <Image
-                src="/logo.svg"
-                alt="Echo AI Logo"
-                width={48}
-                height={48}
-                className="hover-glow"
-              />
-              <span className="ml-2 text-2xl font-bold gradient-text">Echo AI</span>
-            </Link>
-            <h2 className="text-3xl font-bold gradient-text">Welcome Back</h2>
-            <p className="mt-2 text-sm text-gray-600">
-              Sign in to continue your journey
-            </p>
+      <div className="flex-1 flex items-center justify-center p-8">
+        <div className="w-full max-w-md space-y-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold gradient-text">Welcome back</h2>
+            <p className="mt-2 text-gray-600">Log in to your Echo AI account</p>
           </div>
+
+          {message && (
+            <div className="bg-blue-50 border border-blue-200 text-blue-600 px-4 py-3 rounded-lg">
+              {message}
+            </div>
+          )}
+
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -42,12 +101,14 @@ export default function Login() {
                 Email address
               </label>
               <input
-                type="email"
                 id="email"
                 name="email"
+                type="email"
                 required
-                className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
-                placeholder="you@example.com"
+                value={formData.email}
+                onChange={handleChange}
+                className="kawaii-input mt-1 block w-full"
+                placeholder="Enter your email"
               />
             </div>
 
@@ -56,11 +117,13 @@ export default function Login() {
                 Password
               </label>
               <input
-                type="password"
                 id="password"
                 name="password"
+                type="password"
                 required
-                className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+                value={formData.password}
+                onChange={handleChange}
+                className="kawaii-input mt-1 block w-full"
                 placeholder="Enter your password"
               />
             </div>
@@ -68,65 +131,59 @@ export default function Login() {
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
-                  id="remember-me"
-                  name="remember-me"
+                  id="rememberMe"
+                  name="rememberMe"
                   type="checkbox"
-                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                  checked={formData.rememberMe}
+                  onChange={handleChange}
+                  className="h-4 w-4 text-pink-500 focus:ring-pink-400 border-gray-300 rounded"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+                <label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-700">
                   Remember me
                 </label>
               </div>
 
-              <div className="text-sm">
-                <Link href="#" className="font-medium text-primary-600 hover:text-primary-500">
-                  Forgot password?
-                </Link>
-              </div>
+              <Link
+                href="/forgot-password"
+                className="text-sm font-medium text-pink-500 hover:text-pink-600"
+              >
+                Forgot password?
+              </Link>
             </div>
 
-            <div>
-              <button
-                type="submit"
-                className="w-full btn-primary py-3 relative rounded-lg text-lg font-medium hover:opacity-90 transition-opacity"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  </div>
-                ) : (
-                  'Sign in'
-                )}
-              </button>
-            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="kawaii-button w-full flex items-center justify-center"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="animate-spin mr-2 h-5 w-5" />
+                  Logging in...
+                </>
+              ) : (
+                'Log in ✨'
+              )}
+            </button>
           </form>
 
-          <p className="mt-8 text-center text-sm text-gray-600">
+          <p className="text-center text-gray-600">
             Don't have an account?{' '}
-            <Link href="/signup" className="font-medium text-primary-600 hover:text-primary-500">
+            <Link href="/signup" className="text-pink-500 hover:text-pink-600 font-medium">
               Sign up
             </Link>
           </p>
         </div>
       </div>
 
-      {/* Right side - Image */}
-      <div className="hidden lg:block relative flex-1">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-primary-700/30 z-10 rounded-l-3xl" />
-          <Image
-            src="/Diversepplphoto.png"
-            alt="Diverse team in video call"
-            fill
-            className="object-cover rounded-l-3xl"
-            priority
-            quality={90}
-          />
+      <div className="hidden lg:flex flex-1 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-100 to-purple-100" />
+        <div className="absolute inset-0 flex items-center justify-center text-6xl">
+          🌟🎀💫
         </div>
-        <div className="absolute bottom-0 left-0 right-0 p-12 z-20">
-          <blockquote className="text-white text-xl font-medium">
-            "Break language barriers and connect with your global team."
+        <div className="absolute bottom-0 left-0 right-0 p-8 text-center">
+          <blockquote className="text-gray-700 italic">
+            "Break language barriers and connect with anyone, anywhere, instantly."
           </blockquote>
         </div>
       </div>

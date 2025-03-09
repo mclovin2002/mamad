@@ -1,53 +1,96 @@
 'use client';
 
-import Link from 'next/link'
-import Image from 'next/image'
-import { useState } from 'react'
+import { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
+import { Loader2 } from 'lucide-react';
 
-export default function SignUp() {
-  const [isLoading, setIsLoading] = useState(false);
+export default function Signup() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    username: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    // Add your signup logic here
-    setTimeout(() => setIsLoading(false), 1000);
+    setLoading(true);
+    setError('');
+
+    try {
+      // Sign up with Supabase
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (authError) throw authError;
+
+      if (authData.user) {
+        // Create profile after successful signup
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert([
+            {
+              user_id: authData.user.id,
+              username: formData.username,
+              email: formData.email,
+            }
+          ]);
+
+        if (profileError) throw profileError;
+
+        // Redirect to login page after successful signup
+        router.push('/login?message=Please check your email to verify your account');
+      }
+    } catch (err: any) {
+      setError(err.message || 'An error occurred during signup');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen flex">
-      {/* Left side - Form */}
-      <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-20 xl:px-24">
-        <div className="mx-auto w-full max-w-sm lg:w-96">
-          <div className="text-center mb-8">
-            <Link href="/" className="inline-flex items-center justify-center mb-6">
-              <Image
-                src="/logo.svg"
-                alt="Echo AI Logo"
-                width={48}
-                height={48}
-                className="hover-glow"
-              />
-              <span className="ml-2 text-2xl font-bold gradient-text">Echo AI</span>
-            </Link>
-            <h2 className="text-3xl font-bold gradient-text">Welcome to Echo AI</h2>
-            <p className="mt-2 text-sm text-gray-600">
-              Break language barriers and connect globally
-            </p>
+      <div className="flex-1 flex items-center justify-center p-8">
+        <div className="w-full max-w-md space-y-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold gradient-text">Create your account</h2>
+            <p className="mt-2 text-gray-600">Join Echo AI and start communicating globally</p>
           </div>
+
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Full Name
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                Username
               </label>
               <input
+                id="username"
+                name="username"
                 type="text"
-                id="name"
-                name="name"
                 required
-                className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
-                placeholder="Enter your full name"
+                value={formData.username}
+                onChange={handleChange}
+                className="kawaii-input mt-1 block w-full"
+                placeholder="Choose a username"
               />
             </div>
 
@@ -56,12 +99,14 @@ export default function SignUp() {
                 Email address
               </label>
               <input
-                type="email"
                 id="email"
                 name="email"
+                type="email"
                 required
-                className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
-                placeholder="you@example.com"
+                value={formData.email}
+                onChange={handleChange}
+                className="kawaii-input mt-1 block w-full"
+                placeholder="Enter your email"
               />
             </div>
 
@@ -70,57 +115,53 @@ export default function SignUp() {
                 Password
               </label>
               <input
-                type="password"
                 id="password"
                 name="password"
+                type="password"
                 required
-                className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
-                placeholder="Create a secure password"
+                value={formData.password}
+                onChange={handleChange}
+                className="kawaii-input mt-1 block w-full"
+                placeholder="Create a password"
               />
             </div>
 
-            <div>
-              <button
-                type="submit"
-                className="w-full btn-primary py-3 relative rounded-lg text-lg font-medium hover:opacity-90 transition-opacity"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  </div>
-                ) : (
-                  'Create Account'
-                )}
-              </button>
-            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="kawaii-button w-full flex items-center justify-center"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="animate-spin mr-2 h-5 w-5" />
+                  Creating account...
+                </>
+              ) : (
+                'Sign up ✨'
+              )}
+            </button>
           </form>
 
-          <p className="mt-8 text-center text-sm text-gray-600">
+          <p className="text-center text-gray-600">
             Already have an account?{' '}
-            <Link href="/login" className="font-medium text-primary-600 hover:text-primary-500">
-              Sign in
+            <Link href="/login" className="text-pink-500 hover:text-pink-600 font-medium">
+              Log in
             </Link>
           </p>
         </div>
       </div>
 
-      {/* Right side - Image */}
-      <div className="hidden lg:block relative flex-1">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-primary-700/30 z-10 rounded-l-3xl" />
-          <Image
-            src="/Diversepplphoto.png"
-            alt="Diverse team in video call"
-            fill
-            className="object-cover rounded-l-3xl"
-            priority
-            quality={90}
-          />
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 p-12 z-20">
-          <blockquote className="text-white text-xl font-medium">
-            "Connect with anyone, anywhere, in any language."
+      <div className="hidden lg:flex flex-1 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-100 to-purple-100" />
+        <Image
+          src="/Diversepplphoto.png"
+          alt="Diverse people using Echo AI"
+          fill
+          className="object-cover opacity-80"
+        />
+        <div className="absolute bottom-0 left-0 right-0 p-8 text-center z-10">
+          <blockquote className="text-gray-700 italic">
+            "Break language barriers and connect with anyone, anywhere, instantly."
           </blockquote>
         </div>
       </div>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0" y1="0" x2="400" y2="400">
+      <stop offset="0%" stop-color="#FFE5F1"/>
+      <stop offset="100%" stop-color="#F3E8FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg-gradient)" rx="20"/>
+  
+  <!-- Kawaii chat bubble -->
+  <path d="M120 160C120 115.817 155.817 80 200 80C244.183 80 280 115.817 280 160C280 204.183 244.183 240 200 240L180 270L160 240C137.909 240 120 222.091 120 200V160Z" fill="white" stroke="#EC4899" stroke-width="8"/>
+  
+  <!-- Kawaii eyes -->
+  <circle cx="170" cy="160" r="10" fill="#EC4899"/>
+  <circle cx="230" cy="160" r="10" fill="#EC4899"/>
+  
+  <!-- Kawaii smile -->
+  <path d="M180 180C180 180 190 190 200 190C210 190 220 180 220 180" stroke="#EC4899" stroke-width="8" stroke-linecap="round"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="15" fill="#8B5CF6" opacity="0.5"/>
+  <circle cx="300" cy="300" r="20" fill="#EC4899" opacity="0.5"/>
+  <circle cx="320" cy="80" r="10" fill="#8B5CF6" opacity="0.5"/>
+  <circle cx="80" cy="320" r="12" fill="#EC4899" opacity="0.5"/>
+</svg> 
