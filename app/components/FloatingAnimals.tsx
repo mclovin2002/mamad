@@ -54,7 +54,7 @@ export default function FloatingAnimals() {
 
       setAnimals(prev => prev.map(animal => {
         // Gentle vertical float like emojis
-        const verticalOffset = Math.sin(elapsed * 0.8 + animal.phase) * 60;
+        const verticalOffset = Math.sin(elapsed * 0.6 + animal.phase) * 40;
         const newY = animal.baseY + verticalOffset;
 
         return {
@@ -80,11 +80,11 @@ export default function FloatingAnimals() {
       {animals.map(animal => (
         <div
           key={animal.id}
-          className="absolute transition-all duration-[1500ms] ease-sine"
+          className="absolute transition-transform duration-[3000ms] ease-in-out"
           style={{
             left: `${animal.x}%`,
             top: `${animal.y}%`,
-            transform: 'translate(-50%, -50%) scale(0.5)',
+            transform: `translate(-50%, -50%) translateY(${animal.y % 1}px) scale(0.5)`,
             opacity: 0.4
           }}
         >
