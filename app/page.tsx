@@ -49,13 +49,13 @@ export default function Home() {
           <div className="w-full max-w-7xl mx-auto">
             <div className="text-center space-y-6">
               <div className="flex items-center justify-center gap-4">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold gradient-text">
+                <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold gradient-text animate-bounce">
                   Welcome to Echo AI
                 </h1>
                 <VoiceWave />
               </div>
-              <p className="text-xl sm:text-2xl text-gray-600">
-                <TypeWriter text="Break language barriers and connect with anyone, anywhere, instantly." />
+              <p className="text-2xl sm:text-3xl text-pink-500 font-medium">
+                <TypeWriter text="✨ Break language barriers and connect with anyone, anywhere, instantly 💗" />
               </p>
             </div>
           </div>
