@@ -9,6 +9,7 @@ import AnimatedSection from './components/AnimatedSection'
 import ScrollDimmer from './components/ScrollDimmer'
 import VoiceWave from './components/VoiceWave'
 import TypeWriter from './components/TypeWriter'
+import TeamMember from './components/TeamMember'
 
 export default function Home() {
   return (
@@ -146,45 +147,26 @@ export default function Home() {
             </AnimatedSection>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <AnimatedSection className="text-center" delay={0.1}>
-                <div className="relative w-48 h-48 mx-auto mb-4 rounded-full overflow-hidden bg-primary-100">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <User className="w-24 h-24 text-primary-300" />
-                  </div>
-                </div>
-                <h3 className="font-semibold">Alex Chen</h3>
-                <p className="text-gray-600">Backend Developer</p>
-              </AnimatedSection>
-
-              <AnimatedSection className="text-center" delay={0.2}>
-                <div className="relative w-48 h-48 mx-auto mb-4 rounded-full overflow-hidden bg-primary-100">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <User className="w-24 h-24 text-primary-300" />
-                  </div>
-                </div>
-                <h3 className="font-semibold">Sarah Kim</h3>
-                <p className="text-gray-600">Frontend Developer</p>
-              </AnimatedSection>
-
-              <AnimatedSection className="text-center" delay={0.3}>
-                <div className="relative w-48 h-48 mx-auto mb-4 rounded-full overflow-hidden bg-primary-100">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <User className="w-24 h-24 text-primary-300" />
-                  </div>
-                </div>
-                <h3 className="font-semibold">Michael Patel</h3>
-                <p className="text-gray-600">Backend Developer</p>
-              </AnimatedSection>
-
-              <AnimatedSection className="text-center" delay={0.4}>
-                <div className="relative w-48 h-48 mx-auto mb-4 rounded-full overflow-hidden bg-primary-100">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <User className="w-24 h-24 text-primary-300" />
-                  </div>
-                </div>
-                <h3 className="font-semibold">Emma Wilson</h3>
-                <p className="text-gray-600">Frontend Developer</p>
-              </AnimatedSection>
+              <TeamMember
+                name="Alex Chen"
+                role="Backend Developer"
+                delay={0.1}
+              />
+              <TeamMember
+                name="Sarah Kim"
+                role="Frontend Developer"
+                delay={0.2}
+              />
+              <TeamMember
+                name="Michael Patel"
+                role="Backend Developer"
+                delay={0.3}
+              />
+              <TeamMember
+                name="Emma Wilson"
+                role="Frontend Developer"
+                delay={0.4}
+              />
             </div>
           </div>
         </section>
