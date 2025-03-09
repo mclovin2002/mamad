@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Echo AI',
-  description: 'Easy Integration for your communication needs',
+  title: 'VoiceLink',
+  description: 'Break language barriers and connect with anyone, anywhere, instantly.',
 }
 
 export default function RootLayout({

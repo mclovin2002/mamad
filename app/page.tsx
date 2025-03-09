@@ -48,12 +48,12 @@ export default function Home() {
             <div className="flex items-center">
               <Image
                 src="/logo.svg"
-                alt="Echo AI Logo"
+                alt="VoiceLink Logo"
                 width={40}
                 height={40}
                 className="hover-glow"
               />
-              <span className="ml-2 text-xl font-bold gradient-text">Echo AI</span>
+              <span className="ml-2 text-xl font-bold gradient-text">VoiceLink</span>
             </div>
             <div className="flex items-center space-x-4">
               <Link href="/login" className="nav-link">
@@ -79,7 +79,7 @@ export default function Home() {
             <div className="text-center space-y-6">
               <div className="flex items-center justify-center gap-4">
                 <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold gradient-text animate-bounce">
-                  Welcome to Echo AI
+                  Welcome to VoiceLink
                 </h1>
                 <VoiceWave />
               </div>
@@ -142,7 +142,7 @@ export default function Home() {
                 Experience Real-Time Translation
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Watch how Echo AI breaks down language barriers in live conversations
+                Watch how VoiceLink breaks down language barriers in live conversations
               </p>
             </AnimatedSection>
 
@@ -285,7 +285,7 @@ export default function Home() {
       <footer className="bg-white border-t">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <p className="text-center text-gray-400">
-            © {new Date().getFullYear()} Echo AI. All rights reserved.
+            © {new Date().getFullYear()} VoiceLink. All rights reserved.
           </p>
         </div>
       </footer>
