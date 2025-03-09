@@ -64,8 +64,8 @@ export default function Login() {
           console.log('Session will be remembered');
         }
 
-        // Redirect to dashboard or home page
-        router.push('/');
+        // Redirect to setup page
+        router.push('/setup');
       }
     } catch (err: any) {
       setError(err.message || 'An error occurred during login');
