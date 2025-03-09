@@ -148,22 +148,22 @@ export default function Home() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <TeamMember
-                name="Alex Chen"
+                name="Nikoo Vali"
                 role="Backend Developer"
                 delay={0.1}
               />
               <TeamMember
-                name="Sarah Kim"
+                name="Arash Naghavi"
                 role="Frontend Developer"
                 delay={0.2}
               />
               <TeamMember
-                name="Michael Patel"
+                name="Mona Abusharkh"
                 role="Backend Developer"
                 delay={0.3}
               />
               <TeamMember
-                name="Emma Wilson"
+                name="Mary Hosseini"
                 role="Frontend Developer"
                 delay={0.4}
               />
