@@ -5,7 +5,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'VoiceLink',
+  title: 'GlobalBridge',
   description: 'Break language barriers and connect with anyone, anywhere, instantly.',
 }
 

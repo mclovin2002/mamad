@@ -82,7 +82,7 @@ export default function Signup() {
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold gradient-text">Create your account</h2>
-            <p className="mt-2 text-gray-600">Join VoiceLink and start communicating globally</p>
+            <p className="mt-2 text-gray-600">Join GlobalBridge and start communicating globally</p>
           </div>
 
           {error && (
@@ -184,7 +184,7 @@ export default function Signup() {
         <div className="absolute inset-0 bg-gradient-to-b from-pink-100 to-purple-100" />
         <Image
           src="/Diversepplphoto.png"
-          alt="Diverse people using VoiceLink"
+          alt="Diverse people using GlobalBridge"
           fill
           className="object-cover opacity-80"
         />

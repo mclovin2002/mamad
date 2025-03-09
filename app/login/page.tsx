@@ -80,7 +80,7 @@ export default function Login() {
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold gradient-text">Welcome back</h2>
-            <p className="mt-2 text-gray-600">Log in to your VoiceLink account</p>
+            <p className="mt-2 text-gray-600">Log in to your GlobalBridge account</p>
           </div>
 
           {message && (
