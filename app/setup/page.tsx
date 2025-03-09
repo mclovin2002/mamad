@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Mic, Volume2, Mail, ChevronDown, Check } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import Link from 'next/link';
 
 interface MessageForm {
   name: string;
@@ -299,13 +300,19 @@ export default function Setup() {
           </form>
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex gap-4 mt-8">
           <button
             onClick={savePreferences}
-            className="btn-primary px-8 py-3 text-lg"
+            className="flex-1 kawaii-button-secondary flex justify-center items-center"
           >
-            Continue to Dashboard
+            Continue to Dashboard 🎯
           </button>
+          <Link 
+            href="/demo" 
+            className="flex-1 kawaii-button flex justify-center items-center"
+          >
+            Continue to Demo ✨
+          </Link>
         </div>
       </div>
     </div>

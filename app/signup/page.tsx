@@ -163,12 +163,20 @@ export default function Signup() {
             </Link>
           </p>
 
-          <Link 
-            href="/" 
-            className="block text-center kawaii-button-secondary w-full"
-          >
-            ← Back to Home 🏠
-          </Link>
+          <div className="flex gap-4">
+            <Link 
+              href="/" 
+              className="flex-1 text-center kawaii-button-secondary"
+            >
+              ← Back to Home 🏠
+            </Link>
+            <Link 
+              href="/demo" 
+              className="flex-1 text-center kawaii-button"
+            >
+              Continue to Demo ✨
+            </Link>
+          </div>
         </div>
       </div>
 
