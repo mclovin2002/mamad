@@ -1,4 +1,4 @@
-# VoiceLink - Communication Integration Platform
+# GlobalBridge - Communication Integration Platform
 
 A modern web application for seamless integration with popular communication platforms like Microsoft Teams, Google Meet, and Zoom.
 
