@@ -84,13 +84,13 @@ export default function Login() {
           </div>
 
           {message && (
-            <div className="bg-blue-50 border border-blue-200 text-blue-600 px-4 py-3 rounded-lg">
+            <div className="mb-6 bg-blue-50 border border-blue-200 text-blue-600 px-4 py-3 rounded-lg">
               {message}
             </div>
           )}
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
+            <div className="mb-6 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
               {error}
             </div>
           )}
@@ -136,7 +136,7 @@ export default function Login() {
                   type="checkbox"
                   checked={formData.rememberMe}
                   onChange={handleChange}
-                  className="h-4 w-4 text-pink-500 focus:ring-pink-400 border-gray-300 rounded"
+                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                 />
                 <label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-700">
                   Remember me
@@ -154,7 +154,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="kawaii-button w-full flex items-center justify-center"
+              className="w-full kawaii-button flex items-center justify-center"
             >
               {loading ? (
                 <>
@@ -167,12 +167,21 @@ export default function Login() {
             </button>
           </form>
 
-          <p className="text-center text-gray-600">
-            Don't have an account?{' '}
-            <Link href="/signup" className="text-pink-500 hover:text-pink-600 font-medium">
-              Sign up
+          <div className="space-y-4 text-center">
+            <p className="text-gray-600">
+              Don't have an account?{' '}
+              <Link href="/signup" className="text-pink-500 hover:text-pink-600 font-medium">
+                Sign up
+              </Link>
+            </p>
+
+            <Link 
+              href="/" 
+              className="inline-block w-full text-center py-2 px-4 rounded-lg border-2 border-pink-200 text-pink-500 hover:bg-pink-50 transition-colors"
+            >
+              ← Back to Home 🏠
             </Link>
-          </p>
+          </div>
         </div>
       </div>
 
