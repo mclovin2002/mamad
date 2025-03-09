@@ -64,10 +64,17 @@ export default function Dashboard() {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center">
-                <User className="w-6 h-6 text-primary-600" />
+              <Link href="/" className="flex items-center space-x-2 text-pink-500 hover:text-pink-600 transition-colors">
+                <span>← Home</span>
+                <span className="text-lg">🏠</span>
+              </Link>
+              <div className="w-px h-6 bg-gray-200" />
+              <div className="flex items-center space-x-4">
+                <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center">
+                  <User className="w-6 h-6 text-primary-600" />
+                </div>
+                <span className="font-medium">{profile?.username}</span>
               </div>
-              <span className="font-medium">{profile?.username}</span>
             </div>
             <div className="flex items-center space-x-4">
               <button className="p-2 hover:bg-primary-50 rounded-full">

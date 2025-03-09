@@ -162,6 +162,13 @@ export default function Signup() {
               Log in
             </Link>
           </p>
+
+          <Link 
+            href="/" 
+            className="block text-center kawaii-button-secondary w-full"
+          >
+            ← Back to Home 🏠
+          </Link>
         </div>
       </div>
 

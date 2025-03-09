@@ -12,8 +12,31 @@ import TypeWriter from './components/TypeWriter'
 import TeamMember from './components/TeamMember'
 import HeartTrail from './components/HeartTrail'
 import FloatingAnimals from './components/FloatingAnimals'
+import { useEffect, useState } from 'react'
+import { supabase } from '@/lib/supabase'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  async function checkUser() {
+    const { data: { user } } = await supabase.auth.getUser();
+    setIsLoggedIn(!!user);
+  }
+
+  const handleDashboardClick = async () => {
+    if (!isLoggedIn) {
+      router.push('/login');
+    } else {
+      router.push('/dashboard');
+    }
+  };
+
   return (
     <div className="min-h-screen">
       <HeartTrail />
@@ -32,13 +55,19 @@ export default function Home() {
               />
               <span className="ml-2 text-xl font-bold gradient-text">Echo AI</span>
             </div>
-            <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-4">
               <Link href="/login" className="nav-link">
                 Log in
               </Link>
               <Link href="/signup" className="kawaii-button">
                 Sign up ✨
               </Link>
+              <button 
+                onClick={handleDashboardClick}
+                className="kawaii-button-secondary"
+              >
+                Dashboard 🎯
+              </button>
             </div>
           </div>
         </nav>
